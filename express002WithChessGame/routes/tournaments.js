@@ -1,6 +1,9 @@
 const db = require('../models/index'); // equivalent mysql
-const TestTournamentsDiam = db.sequelize.models.TestTournamentsDiam; // Model Testtournament
+const TestTournamentsDiam = db.sequelize.models.TestTournamentsDiam; // Model TestTournament
+const TestChessPlayersDiams = db.sequelize.models.TestChessPlayersDiams; // Model TestPlayers
 var express = require('express');
+const _ = require('underscore');
+const { Op } = require("sequelize");
 var router = express.Router();
 
 /* GET home page. */
@@ -33,5 +36,64 @@ router.post('/create', async (req, res) => {
     });
     res.redirect('/tournaments');
 });
+
+
+router.get('/delete', async function (req, res) {
+    // let tournaments = await gettournaments();
+    // let tournaments = await Testtournament.findAll();
+    // console.log(tournaments);
+    await TestTournamentsDiam.destroy({ where: { id: req.query.id } }).then((deleted) => {
+        if (deleted === 1) {
+            res.render('tournaments/deleted',
+                {
+                    title: 'Express 002 - Tournaments delete page',
+                    // list: gettournaments()
+                    message: `You deleted Tournament with id: ${req.query.id}`
+                });
+        }
+    },
+        (error) => {
+            res.render('tournaments/deleted',
+                {
+                    title: 'Express 002 - Tournaments delete page',
+                    // list: gettournaments()
+                    message: `<div><p>There was an error deleting tournament with id: ${req.query.id}</p>
+                                   <p>Error: ${error}</p></div>`
+                });
+        });
+
+});
+
+
+router.get('/start', async function (req, res) {
+
+    let tournament = await TestTournamentsDiam.findByPk(req.query.id);
+    let participantsNo = tournament.tplayers;
+    let players = await TestChessPlayersDiams.findAll({
+        where: {
+            createdAt: { [Op.lt]: new Date(tournament.tdate) }
+        }
+    });
+
+    let shuffledArray = _.shuffle(players);
+    // console.log(shuffledArray);
+
+    let round = 1,
+        bracket = [],
+        participants = [];
+
+    for (i = 0; i < participantsNo; i++) {
+        participants.push(shuffledArray[i])
+    };
+
+    console.log(participants);
+    console.log(participants.length);
+
+    // while(participantsNo == 2) {
+
+    // }
+});
+
+
 
 module.exports = router;
