@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <a href="/tournaments/create">Add New Tournament</a>
+    <ul>
+        <% for(var i = 0; i < list.length; i++) { %>
+            <li>
+                <%= `Id: ${list[i].id}\tTitle: ${list[i].title}\tStarting Date: ${list[i].tdate}\tNumber of Players: ${list[i].tplayers} ` %>&nbsp;
+                <a href="/tournaments/edit/<%= list[i].id %>">Edit</a>
+                <a href="/tournaments/delete?id=<%= list[i].id %>">Delete</a>
+            </li>
+        <% } %>
+    </ul>
+</body>
+</html>

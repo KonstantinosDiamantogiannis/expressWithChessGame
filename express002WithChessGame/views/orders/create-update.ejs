@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+
+<body>
+    <h3><%= message %></h3>
+    <form action="/orders/<%= action %>" method="POST">
+        <input type="text" name="id" value="<%= order.id %>" hidden readonly>
+        Customer: 
+        <select name="customers" id="customers">
+            <% for(var i = 0; i < customers.length; i++) { %>
+                <option value="<%= customers[i].id %>"><%= customers[i].firstName + " " + customers[i].lastName %></option>
+            <% } %>
+        </select><br>
+        Product:
+        <select name="products" id="products">
+            <% for(var i = 0; i < products.length; i++) { %>
+                <option value="<%= products[i].id %>"><%= products[i].name %></option>
+            <% } %>
+        </select><br>
+        Quantity: <input type="number" name="quantity" title="Quantity" value="<%= order.quantity %>" min=1 /><br />
+        <button type="submit">Save</button>
+    </form>
+    <script>console.log("Hello")</script>
+</body>
+
+</html>

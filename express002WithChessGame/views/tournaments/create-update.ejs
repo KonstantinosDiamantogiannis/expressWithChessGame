@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+
+<body>
+    <h3><%= message %></h3>
+    <form action="/tournaments/<%= action %>" method="POST">
+        <input type="text" name="id" value="<%= tournament.id %>" hidden readonly>
+        Title: <input type="text" name="title" title="title" value="<%= tournament.title %>" /><br />
+        Starting Date of Tournament: <input type="text" name="tdate" title="tdate" value="<%= tournament.tdate %>" /><br />
+        Maximum Number Player Participation : <input type="number" name="tplayers" title="tplayers" value="<%= tournament.tplayers %>" /><br />
+        <button type="submit">Save</button>
+    </form>
+    <script>console.log("Hello")</script>
+</body>
+
+</html>

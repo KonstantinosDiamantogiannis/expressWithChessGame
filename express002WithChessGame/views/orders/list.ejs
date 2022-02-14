@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <a href="/orders/create">Add New Order</a>
+    <h3><%= message %></h3>
+    <ul>
+        <% for(var i = 0; i < list.length; i++) { %>
+            <li>
+                <div>
+                    <p><%= `Id: ${list[i].id}` %></p>
+                    <p><%= `Customer Id: ${list[i].customer.id}, Customer Name: ${list[i].customer.name}` %></p>
+                    <p><%= `Product Id: ${list[i].product.id} Product Name: ${list[i].product.name}` %></p>
+                    <p><%= `Quantity: ${list[i].quantity}` %></p>
+                    <p><%= `Total Price: ${list[i].totalPrice}` %></p>
+                    <p>
+                        <a href="/orders/edit/<%= list[i].id %>">Edit</a>
+                        <a href="/orders/delete?id=<%= list[i].id %>">Delete</a>
+                    </p>
+                </div>
+            </li>
+        <% } %>
+    </ul>
+</body>
+</html>
